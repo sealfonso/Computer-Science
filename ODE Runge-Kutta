@@ -1,0 +1,12 @@
+clear
+clc
+syms A(x) x(t)
+r=0.1;
+g=31,2;
+nivin=8;
+volin=512*((pi/3)^3);
+eq=diff(x,t)==-0.6*pi*(r^2)*sqrt(2*g)*((sqrt(x))/A);
+t=600;
+h1=100;
+h2=25;
+h3=5;
