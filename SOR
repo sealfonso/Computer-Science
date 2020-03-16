@@ -1,0 +1,92 @@
+function [kg, x0g] = funomega(w)
+N=100;
+eps=10^(-6);
+% Técnica de Gauss-Seidel
+n=80;
+nOnes=ones(n,1);
+Ag=diag(4*nOnes,0)-diag(nOnes(1:n-1), -1) - diag(nOnes(1:n-1), 1);
+bg=transpose([1:1:80]);
+kg=1;
+Da=diag(diag(Ag));
+La=-tril(Ag,-1);
+Ua=-triu(Ag,1);
+invDa= inv(Da);
+Tj=invDa*(La+Ua);
+valpro= eig(Tj);
+pTj=norm(valpro,inf);
+
+ng =length(bg);
+difg=1;
+x0g=zeros(1,ng);
+xg=zeros(1,ng);
+while (kg<=N  && difg>eps)
+    for i =1:ng
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (Ag(i,j).*xg(j));
+        end
+        for j=(i+1):ng 
+            sum2 = sum2 + (Ag(i,j).*x0g(j));
+        end
+        xg(i)=(x0g(i)*(1-w))+(bg(i)-sum1-sum2)*(w/Ag(i,i));
+    end
+    kg=kg+1;
+    difg = norm(x0g-xg,inf);    
+    x0g=xg;
+end
+end
+
+//
+
+clear
+clc
+w=1:0.01:1.5;
+
+for i=1:length(w)
+x(i) = funomega(w(i));
+end
+plot(w,x);
+title('Punto 3')
+xlabel('Omega');
+ylabel('Iteraciones');
+
+
+%% Punto 3
+
+n=80;
+nOnes=ones(n,1);
+A=diag(4*nOnes,0)-diag(nOnes(1:n-1), -1) - diag(nOnes(1:n-1), 1);
+b=transpose([1:1:80]);
+Da=diag(diag(A));
+La=-tril(A,-1);
+Ua=-triu(A,1);
+invDa= inv(Da);
+Tj=invDa*(La+Ua);
+valpro= eig(Tj);
+pTj=norm(valpro,inf);
+
+wopt = 2/(1+sqrt(1-pTj^2));
+
+txtop=['El omega óptimo para el sistema es:',num2str(wopt)];
+disp(txtop);
+
+iter1=funomega(wopt);
+txt1='El número de iteraciones para el omega óptimo es:';
+to1=[txt1, num2str(iter1)];
+disp(to1);
+
+iter2=funomega(1);
+txt2='El número de iteraciones para un omega de 1 es:';
+to2=[txt2, num2str(iter2)];
+disp(to2);
+
+iter3=funomega(1.5);
+txt3='El número de iteraciones para un omega de 1.5 es:';
+to3=[txt3, num2str(iter3)];
+disp(to3);
+
+iter4=funomega(1.9);
+txt4='El número de iteraciones para un omega de 1.9 es:';
+to4=[txt4, num2str(iter4)];
+disp(to4);
