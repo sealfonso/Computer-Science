@@ -1,0 +1,51 @@
+% Punto 1
+% a)
+disp('Respuesta Punto 1.a:')
+n=[1:5];
+a=[2 2 2 2 4];
+respuestaunoa=sym(n.*a)
+% b)
+disp('Respuesta Punto 1.b:')
+b=[1 1/8 1/27 1/64 1/125];
+respuestaunob=sym(n.*b)
+
+% Punto 3
+disp('Respuesta Punto 3:')
+grados=[0:10:360]';
+radianes=(grados.*pi)./180;
+tabla=table(grados,radianes)
+
+% Punto 5
+disp('Respuesta Punto 5:')
+esentero = @(x)isfinite(x) & x==floor(x);
+for ncinco=1:50
+    if esentero(ncinco/3)==0   
+       if ((ncinco^3)-(ncinco^2)+40)>1000
+           disp(ncinco);
+       end
+    end
+end
+
+% Punto 7
+disp('Respuesta Punto 7:')
+for consumptions=[200 500 700 1000 1500]
+    if consumptions<=500
+       disp((((consumptions*2)/100)+5));
+    elseif consumptions>500 && consumptions<1000
+       disp(15+((consumptions-500)*(5/100)));
+    elseif consumptions>=1000
+       disp(40+((consumptions-1000)*(1/10)));
+    end
+end
+    
+% Punto 9
+xnueve=linspace(-10,10);
+yuno=cosh(xnueve/5);
+ydos=cosh(xnueve/4);
+plot(xnueve,yuno,xnueve,ydos)
+grid on
+title('Gráfica Punto 9')
+xlabel('Eje x')
+ylabel('Eje y')
+legend('y=cosh(x/5)','y=cosh(x/4)')
+axis([-10 10 -2 8 ])
