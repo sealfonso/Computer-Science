@@ -1,0 +1,33 @@
+syms v(t)
+R=12;
+L=50*10^(-3);
+C=100*10^(-6);
+Dv = diff(v,t);
+ode = diff(v,t,2)+((R/L)*diff(v,t))+((1/(L*C))*v) ==((1/(L*C))*100*cos(100*pi*t));
+cond1 = v(0)==0;
+cond2 = Dv(0)==0;
+conds = [cond1 cond2];
+vSol(t) = dsolve(ode,conds);
+pretty(vSol(t))
+t= 0:0.001:0.8;
+plot(t,vSol(t))
+
+//
+
+function out = F(t,w)
+    R=12;
+    L=50*10^(-3);
+    C=100*10^(-6);
+    out=[w(2);(1/(L*C))*100*cos(100*pi*t)-(R/L)*w(2)-(1/(L*C))*w(1)];
+end
+
+//
+
+h2=0.5*10^(-3);
+h1=0.25*10^(-3);
+[time1,y1]=euler2(@F,0,h1,0.4,[0 0]);
+[time,y2]=euler2(@F,0,h2,0.4,[0 0]);
+figure(1)
+plot(time1,y1);
+figure(2)
+plot(time,y2);
