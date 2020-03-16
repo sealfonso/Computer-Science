@@ -1,0 +1,23 @@
+%% Punto 3
+disp('Resultado Punto 3:')
+vardouble=1.37e38;
+r3a=vardouble*3
+varsingle=single(1.37e38);
+r3b=varsingle*3
+disp('Función whos del resultado en precisión doble:')
+whos r3a
+disp('Función whos del resultado en precisión single:')
+whos r3b
+
+%% Punto 4
+disp('Resultado Punto 4:')
+r4=sin(pi)
+
+%% Punto 5
+disp('Resultado Punto 5:')
+r5=eps(500)
+
+%% Punto 6
+disp('Resultado Punto 6:')
+quinsin=single(500);
+r6=eps(quinsin)
