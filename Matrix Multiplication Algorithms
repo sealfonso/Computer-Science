@@ -1,0 +1,273 @@
+A=randi(100,1000,1000);
+B=randi(100,1000,100);
+[m,p]=size(A);
+n=size(B,2);
+%Vectorizado
+Cv=A*B;
+
+%% i-j-k %%
+
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C1=zeros(m,n);
+for i=1:m
+    for j=1:n
+        for k=1:p
+            C1(i,j)= C1(i,j)+A(i,k)*B(k,j);
+        end
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome = mean(Vtiempos);
+disp(['i-j-k:' num2str(prome) 's'])
+%% j-i-k
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic    
+C5=zeros(m,n);
+for j=1:n
+    for i=1:m 
+        for k=1:p
+            C5(i,j)= C5(i,j)+A(i,k)*B(k,j);
+        end
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+
+prome =mean(Vtiempos);
+
+disp(['j-i-k:' num2str(prome) 's'])
+%% k-i-j
+
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C4 =zeros(m,n);
+for k=1:p
+    for i=1:m
+        for j=1:n
+            C4(i,j)= C4(i,j)+A(i,k)*B(k,j);
+        end
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['k-i-j:' num2str(prome) 's'])
+%% i-k-j
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C6=zeros(m,n);
+for i=1:m
+    for k=1:p
+        for j=1:n
+            C6(i,j)= C6(i,j)+A(i,k)*B(k,j);
+        end
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['i-k-j:' num2str(prome) 's'])
+%% j-k-i
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C7=zeros(m,n);
+for j=1:n
+    for k=1:p
+        for i=1:m
+            C7(i,j)= C7(i,j)+A(i,k)*B(k,j);
+        end
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['j-k-i:' num2str(prome) 's'])
+%% k-j-i
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C8=zeros(m,n);
+for k=1:p
+    for j=1:n
+        for i=1:m
+            C8(i,j)= C8(i,j)+A(i,k)*B(k,j);
+        end
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['k-j-i:' num2str(prome) 's'])
+%% i-j
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C2=zeros(m,n);
+for i=1:m
+    for j=1:n
+        C2(i,j)= C2(i,j)+A(i,:)*B(:,j);        
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['i-j:' num2str(prome) 's'])
+%% j-i
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C9=zeros(m,n);
+for j=1:n
+    for i=1:m         
+            C9(i,j)= C9(i,j)+A(i,:)*B(:,j);       
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['j-i:' num2str(prome) 's'])
+%% i-k
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C10=zeros(m,n);
+for i=1:m
+    for k=1:p        
+            C10(i,:)= C10(i,:)+A(i,k)*B(k,:);       
+    end
+end
+
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['i-k:' num2str(prome) 's'])
+%% k-i
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C11=zeros(m,n);
+for k=1:p
+    for i=1:m        
+            C11(i,:)= C11(i,:)+A(i,k)*B(k,:);      
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['k-i:' num2str(prome) 's'])
+%% j-k
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C13=zeros(m,n);
+for j=1:n
+    for k=1:p        
+            C13(:,j)= C13(:,j)+A(:,k)*B(k,j);        
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['j-k:' num2str(prome) 's'])
+%% k-j
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C14=zeros(m,n);
+for k=1:p
+    for j=1:n        
+            C14(:,j)= C14(:,j)+A(:,k)*B(k,j);        
+    end
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['k-j:' num2str(prome) 's'])
+%% i 
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C3=zeros(m,n);
+for i=1:m    
+        C3(i,:)= C3(i,:)+A(i,:)*B;   
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['i:' num2str(prome) 's'])
+%% j
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C15=zeros(m,n);
+for j=1:n           
+            C15(:,j)= C15(:,j)+A*B(:,j);      
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['j:' num2str(prome) 's'])
+%% k
+Vtiempos=zeros(1,5);
+lug=1;
+while lug<=5
+tic
+C16=zeros(m,n);
+for k=1:p           
+            C16= C16+A(:,k)*B(k,:);   
+end
+t=toc;
+Vtiempos(lug)=t;
+lug=lug+1;
+end
+prome =mean(Vtiempos);
+disp(['k:' num2str(prome) 's'])
