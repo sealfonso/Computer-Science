@@ -1,0 +1,35 @@
+% x=400:1:100*10^3;
+% y=fp(x);
+% y1=f(x,40);
+% figure
+% plot(x,y1,'r',x,y,'b','linewidth',1);
+% title('T=40ºC')
+% xlabel('Resistencia');
+% legend('f','fp','location','southeast');
+
+%% Punto 1
+for i=1:81
+j=i-41;
+N=20;
+eps=10^-6;
+k=0;
+x0=5000;
+f1(i)= f(x0,j);
+df=fp(x0);  
+while (abs(f1(i))>eps && k<N)
+    a(i)=x0-f1(i)/df;
+    f1=f(a,j);
+    df=fp(a(i));
+    x0=a(i);
+    k=k+1;
+end
+k;
+a(i);
+end
+
+%% Punto 3
+T=-40:40;
+plot(T,a,'b','linewidth',1);
+title('Curva característica')
+ylabel('Resistencia');
+xlabel('Temperatura');
