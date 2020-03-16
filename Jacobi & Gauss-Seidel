@@ -1,0 +1,603 @@
+%% Punto 1
+%  Técnica de Jacobi
+A=[3 -1 1; 3 6 2;3 3 7];
+b=[1 ;0 ;4];
+N=200;
+k=1;
+n =length(b);
+dif=1;
+eps=10^(-6);
+x0=zeros(1,n);
+x=zeros(1,n);
+while (k<=N  && dif>eps)
+    for i =1:n
+        sum=0;
+        for j =1:n
+            if j~=i            
+            sum = sum + A(i,j)*x0(j);
+            end
+        end
+        x(i)=(b(i)-sum)/A(i,i);
+    end
+    k=k+1;
+    dif = norm(x0-x,inf);    
+    x0=x;
+end
+
+//
+
+%% Punto 1
+%  Técnica de Jacobi
+Aj=[3 0 0; 0 6 0;0 0 7];
+bsj=[0 ;0 ;0];
+N=200;
+eps=10^(-6);
+kj=1;
+nj =length(bsj);
+difj=1;
+x0j=zeros(1,nj);
+xj=zeros(1,nj);
+while (kj<=N  && difj>eps)
+    for i =1:nj
+        sum=0;
+        for j =1:nj
+            if j~=i            
+            sum = sum + Aj(i,j)*x0j(j);
+            end
+        end
+        xj(i)=(bsj(i)-sum)/Aj(i,i);
+    end
+    kj=kj+1;
+    difj = norm(x0j-xj,inf);    
+    x0j=xj;
+end
+
+% Técnica de Gauss-Seidel
+Ag=[1 0 0; 0 2 0;0 0 3];
+bg=[0 ;0 ;0];
+kg=1;
+ng =length(bg);
+difg=1;
+x0g=zeros(1,ng);
+xg=zeros(1,ng);
+while (kg<=N  && difg>eps)
+    for i =1:ng
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (Ag(i,j).*xg(j));
+        end
+        for j=(i+1):ng 
+            sum2 = sum2 + (Ag(i,j).*x0g(j));
+        end
+        xg(i)=(bg(i)-sum1-sum2)/Ag(i,i);
+    end
+    kg=kg+1;
+    difg = norm(x0g-xg,inf);    
+    x0g=xg;
+end
+%% Punto 2
+vtime=zeros(1,8);
+place=1;
+%a Jacobi
+Aaj=[3 -1 1; 3 6 2;3 3 7];
+baj=[1 ;0 ;4];
+kaj=1;
+naj =length(baj);
+difaj=1;
+x0aj=zeros(1,naj);
+xaj=zeros(1,naj);
+tic
+while (kaj<=N  && difaj>eps)
+    for i =1:naj
+        sum=0;
+        for j =1:naj
+            if j~=i            
+            sum = sum + Aaj(i,j)*x0aj(j);
+            end
+        end
+        xaj(i)=(baj(i)-sum)/Aaj(i,i);
+    end
+    kaj=kaj+1;
+    difaj = norm(x0aj-xaj,inf);    
+    x0aj=xaj;
+end
+disp('x de 2a por Jacobi y tiempo:')
+disp(x0aj)
+toc
+%a Gauss-Seidel
+Aag=[3 -1 1; 3 6 2;3 3 7];
+bag=[1 ;0 ;4];
+kag=1;
+nag =length(bag);
+difag=1;
+x0ag=zeros(1,nag);
+xag=zeros(1,nag);
+tic
+while (kag<=N  && difag>eps)
+    for i =1:nag
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (Aag(i,j).*xag(j));
+        end
+        for j=(i+1):nag
+            sum2 = sum2 + (Aag(i,j).*x0ag(j));
+        end
+        xag(i)=(bag(i)-sum1-sum2)/Aag(i,i);
+    end
+    kag=kag+1;
+    difag = norm(x0ag-xag,inf);    
+    x0ag=xag;
+end
+disp('x de 2a por Gauss-Seidel y tiempo:')
+disp(x0ag)
+toc
+%b Jacobi
+Absj=[10 -1 0; -1 10 -2;0 -2 10];
+bbsj=[9 ;7 ;6];
+kbsj=1;
+nbsj =length(bbsj);
+difbsj=1;
+x0bsj=zeros(1,nbsj);
+xbsj=zeros(1,nbsj);
+tic
+while (kbsj<=N  && difbsj>eps)
+    for i =1:nbsj
+        sum=0;
+        for j =1:nbsj
+            if j~=i            
+            sum = sum + Absj(i,j)*x0bsj(j);
+            end
+        end
+        xbsj(i)=(bbsj(i)-sum)/Absj(i,i);
+    end
+    kbsj=kbsj+1;
+    difbsj = norm(x0bsj-xbsj,inf);    
+    x0bsj=xbsj;
+end
+disp('x de 2b por Jacobi y tiempo:')
+disp(x0bsj)
+toc
+%b Gauss-Seidel
+Abg=[10 -1 0; -1 10 -2;0 -2 10];
+bbg=[9 ;7 ;6];
+kbg=1;
+nbg =length(bbg);
+difbg=1;
+x0bg=zeros(1,nbg);
+xbg=zeros(1,nbg);
+tic
+while (kbg<=N  && difbg>eps)
+    for i =1:nbg
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (Abg(i,j).*xbg(j));
+        end
+        for j=(i+1):nbg 
+            sum2 = sum2 + (Abg(i,j).*x0bg(j));
+        end
+        xbg(i)=(bbg(i)-sum1-sum2)/Abg(i,i);
+    end
+    kbg=kbg+1;
+    difbg = norm(x0bg-xbg,inf);    
+    x0bg=xbg;
+end
+disp('x de 2b por Gauss-Seidel y tiempo:')
+disp(x0bg)
+toc
+%c Jacobi
+Acj=[10 5 0 0; 5 10 -4 0; 0 -4 8 -1; 0 0 -1 5];
+bcj=[6 ;25 ;-11;-11];
+kcj=1;
+ncj =length(bcj);
+difcj=1;
+x0cj=zeros(1,ncj);
+xcj=zeros(1,ncj);
+tic
+while (kcj<=N  && difcj>eps)
+    for i =1:ncj
+        sum=0;
+        for j =1:ncj
+            if j~=i            
+            sum = sum + Acj(i,j)*x0cj(j);
+            end
+        end
+        xcj(i)=(bcj(i)-sum)/Acj(i,i);
+    end
+    kcj=kcj+1;
+    difcj = norm(x0cj-xcj,inf);    
+    x0cj=xcj;
+end
+disp('x de 2c por Jacobi y tiempo:')
+disp(x0cj)
+toc
+%c Gauss-Seidel
+Acg=[10 5 0 0; 5 10 -4 0; 0 -4 8 -1; 0 0 -1 5];
+bcg=[6 ;25 ;-11;-11];
+kcg=1;
+ncg =length(bcg);
+difcg=1;
+x0cg=zeros(1,ncg);
+xcg=zeros(1,ncg);
+tic
+while (kcg<=N  && difcg>eps)
+    for i =1:ncg
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (Acg(i,j).*xcg(j));
+        end
+        for j=(i+1):ncg 
+            sum2 = sum2 + (Acg(i,j).*x0cg(j));
+        end
+        xcg(i)=(bcg(i)-sum1-sum2)/Acg(i,i);
+    end
+    kcg=kcg+1;
+    difcg = norm(x0cg-xcg,inf);    
+    x0cg=xcg;
+end
+disp('x de 2c por Gauss-Seidel y tiempo:')
+disp(x0cg)
+toc
+%d Jacobi
+Adj=[4 1 1 0 1; -1 -3 1 1 0; 2 1 5 -1 -1; -1 -1 -1 4 0; 0 2 -1 1 4];
+bdj=[6; 6; 6; 6; 6];
+kdj=1;
+ndj =length(bdj);
+difdj=1;
+x0dj=zeros(1,ndj);
+xdj=zeros(1,ndj);
+tic
+while (kdj<=N  && difdj>eps)
+    for i =1:ndj
+        sum=0;
+        for j =1:ndj
+            if j~=i            
+            sum = sum + Adj(i,j)*x0dj(j);
+            end
+        end
+        xdj(i)=(bdj(i)-sum)/Adj(i,i);
+    end
+    kdj=kdj+1;
+    difdj = norm(x0dj-xdj,inf);    
+    x0dj=xdj;
+end
+disp('x de 2d por Jacobi y tiempo:')
+disp(x0dj)
+toc
+%d Gauss-Seidel
+Adg=[4 1 1 0 1; -1 -3 1 1 0; 2 1 5 -1 -1; -1 -1 -1 4 0; 0 2 -1 1 4];
+bdg=[6; 6; 6; 6; 6];
+kdg=1;
+ndg =length(bdg);
+difdg=1;
+x0dg=zeros(1,ndg);
+xdg=zeros(1,ndg);
+tic
+while (kdg<=N  && difdg>eps)
+    for i =1:ndg
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (Adg(i,j).*xdg(j));
+        end
+        for j=(i+1):ndg 
+            sum2 = sum2 + (Adg(i,j).*x0dg(j));
+        end
+        xdg(i)=(bdg(i)-sum1-sum2)/Adg(i,i);
+    end
+    kdg=kdg+1;
+    difdg = norm(x0dg-xdg,inf);    
+    x0dg=xdg;
+end
+disp('x de 2d por Gauss-Seidel y tiempo:')
+disp(x0dg)
+toc
+
+%% Punto 3
+% Para n=3
+nh1=3;
+hilbert1 = hilb(nh1);
+invhilbert1 = invhilb(nh1);
+bhilb1 = zeros(nh1,1);
+for i=1:nh1
+    for j=1:nh1
+    bhilb1(i)= bhilb1(i)+ hilbert1(i,j);
+    end
+end 
+sol1 = transpose(invhilbert1*bhilb1);
+%Jacobi
+nhil1=length(bhilb1);
+k31=1;
+dif31=1;
+x031j=zeros(1,nhil1);
+x31j=zeros(1,nhil1);
+while (k31<=N  && dif31>eps)
+    for i =1:nhil1
+        sum=0;
+        for j =1:nhil1
+            if j~=i            
+            sum = sum + hilbert1(i,j)*x031j(j);
+            end
+        end
+        x31j(i)=(bhilb1(i)-sum)/hilbert1(i,i);
+    end
+    k31=k31+1;
+    dif31 = norm(x031j-x31j,inf);    
+    x031j=x31j;
+end
+
+relerr1j = (norm(x031j-sol1)/norm(sol1))*100;
+n31j=['Para n=3, por Jacobi, el error relativo es:',num2str(relerr1j),'%'];
+disp(n31j)
+%Gauss-Seidel.
+k31g=1;
+dif31g=1;
+x031g=zeros(1,nhil1);
+x31g=zeros(1,nhil1);
+while (k31g<=N  && dif31g>eps)
+    for i =1:nhil1
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (hilbert1(i,j).*x31g(j));
+        end
+        for j=(i+1):nhil1 
+            sum2 = sum2 + (hilbert1(i,j).*x031g(j));
+        end
+        x31g(i)=(bhilb1(i)-sum1-sum2)/hilbert1(i,i);
+    end
+    k31g=k31g+1;
+    dif31g = norm(x031g-x31g,inf);    
+    x031g=x31g;
+end
+relerr1g = (norm(x031g-sol1)/norm(sol1))*100;
+n31g=['Para n=3, por Gauss-Seidel, el error relativo es:',num2str(relerr1g),'%'];
+disp(n31g)
+
+
+% Para n=6
+nh2=6;
+hilbert2 = hilb(nh2);
+invhilbert2 = invhilb(nh2);
+bhilb2 = zeros(nh2,1);
+for i=1:nh2
+    for j=1:nh2
+    bhilb2(i)= bhilb2(i)+ hilbert2(i,j);
+    end
+end 
+sol2 = transpose(invhilbert2*bhilb2);
+%Jacobi
+nhil2=length(bhilb2);
+k32=1;
+dif32=1;
+x032j=zeros(1,nhil2);
+x32j=zeros(1,nhil2);
+while (k32<=N  && dif32>eps)
+    for i =1:nhil2
+        sum=0;
+        for j =1:nhil2
+            if j~=i            
+            sum = sum + hilbert2(i,j)*x032j(j);
+            end
+        end
+        x32j(i)=(bhilb2(i)-sum)/hilbert2(i,i);
+    end
+    k32=k32+1;
+    dif32 = norm(x032j-x32j,inf);    
+    x032j=x32j;
+end
+
+relerr2j = (norm(x032j-sol2)/norm(sol2))*100;
+n32j=['Para n=6, por Jacobi, el error relativo es:',num2str(relerr2j),'%'];
+disp(n32j)
+%Gauss-Seidel.
+k32g=1;
+dif32g=1;
+x032g=zeros(1,nhil2);
+x32g=zeros(1,nhil2);
+while (k32g<=N  && dif32g>eps)
+    for i =1:nhil2
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (hilbert2(i,j).*x32g(j));
+        end
+        for j=(i+1):nhil2 
+            sum2 = sum2 + (hilbert2(i,j).*x032g(j));
+        end
+        x32g(i)=(bhilb2(i)-sum1-sum2)/hilbert2(i,i);
+    end
+    k32g=k32g+1;
+    dif32g = norm(x032g-x32g,inf);    
+    x032g=x32g;
+end
+relerr2g = (norm(x032g-sol2)/norm(sol2))*100;
+n32g=['Para n=6, por Gauss-Seidel, el error relativo es:',num2str(relerr2g),'%'];
+disp(n32g)
+
+
+%Para n=9
+nh3=9;
+hilbert3 = hilb(nh3);
+invhilbert3 = invhilb(nh3);
+bhilb3 = zeros(nh3,1);
+for i=1:nh3
+    for j=1:nh3
+    bhilb3(i)= bhilb3(i)+ hilbert3(i,j);
+    end
+end 
+sol3 = transpose(invhilbert3*bhilb3);
+%Jacobi
+nhil3=length(bhilb3);
+k33=1;
+dif33=1;
+x033j=zeros(1,nhil3);
+x33j=zeros(1,nhil3);
+while (k33<=N  && dif33>eps)
+    for i =1:nhil3
+        sum=0;
+        for j =1:nhil3
+            if j~=i            
+            sum = sum + hilbert3(i,j)*x033j(j);
+            end
+        end
+        x33j(i)=(bhilb3(i)-sum)/hilbert3(i,i);
+    end
+    k33=k33+1;
+    dif33 = norm(x033j-x33j,inf);    
+    x033j=x33j;
+end
+
+relerr3j = (norm(x033j-sol3)/norm(sol3))*100;
+n33j=['Para n=9, por Jacobi, el error relativo es:',num2str(relerr3j),'%'];
+disp(n33j)
+%Gauss-Seidel.
+k33g=1;
+dif33g=1;
+x033g=zeros(1,nhil3);
+x33g=zeros(1,nhil3);
+while (k33g<=N  && dif33g>eps)
+    for i =1:nhil3
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (hilbert3(i,j).*x33g(j));
+        end
+        for j=(i+1):nhil3 
+            sum2 = sum2 + (hilbert3(i,j).*x033g(j));
+        end
+        x33g(i)=(bhilb3(i)-sum1-sum2)/hilbert3(i,i);
+    end
+    k33g=k33g+1;
+    dif33g = norm(x033g-x33g,inf);    
+    x033g=x33g;
+end
+relerr3g = (norm(x033g-sol3)/norm(sol3))*100;
+n33g=['Para n=9, por Gauss-Seidel, el error relativo es:',num2str(relerr3g),'%'];
+disp(n33g)
+
+
+%Para n=12
+nh4=12;
+hilbert4 = hilb(nh4);
+invhilbert4 = invhilb(nh4);
+bhilb4 = zeros(nh4,1);
+for i=1:nh4
+    for j=1:nh4
+    bhilb4(i)= bhilb4(i)+ hilbert4(i,j);
+    end
+end 
+sol4 = transpose(invhilbert4*bhilb4);
+%Jacobi
+nhil4=length(bhilb4);
+k34=1;
+dif34=1;
+x034j=zeros(1,nhil4);
+x34j=zeros(1,nhil4);
+while (k34<=N  && dif34>eps)
+    for i =1:nhil4
+        sum=0;
+        for j =1:nhil4
+            if j~=i            
+            sum = sum + hilbert4(i,j)*x034j(j);
+            end
+        end
+        x34j(i)=(bhilb4(i)-sum)/hilbert4(i,i);
+    end
+    k34=k34+1;
+    dif34 = norm(x034j-x34j,inf);    
+    x034j=x34j;
+end
+
+relerr4j = (norm(x034j-sol4)/norm(sol4))*100;
+n34j=['Para n=12, por Jacobi, el error relativo es:',num2str(relerr4j),'%'];
+disp(n34j)
+%Gauss-Seidel.
+k34g=1;
+dif34g=1;
+x034g=zeros(1,nhil4);
+x34g=zeros(1,nhil4);
+while (k34g<=N  && dif34g>eps)
+    for i =1:nhil4
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (hilbert4(i,j).*x34g(j));
+        end
+        for j=(i+1):nhil4 
+            sum2 = sum2 + (hilbert4(i,j).*x034g(j));
+        end
+        x34g(i)=(bhilb4(i)-sum1-sum2)/hilbert4(i,i);
+    end
+    k34g=k34g+1;
+    dif34g = norm(x034g-x34g,inf);    
+    x034g=x34g;
+end
+relerr4g = (norm(x034g-sol4)/norm(sol4))*100;
+n34g=['Para n=12, por Gauss-Seidel, el error relativo es:',num2str(relerr4g),'%'];
+disp(n34g)
+
+
+%Para n=15
+nh5=15;
+hilbert5 = hilb(nh5);
+invhilbert5 = invhilb(nh5);
+bhilb5 = zeros(nh5,1);
+for i=1:nh5
+    for j=1:nh5
+    bhilb5(i)= bhilb5(i)+ hilbert5(i,j);
+    end
+end 
+sol5 = transpose(invhilbert5*bhilb5);
+%Jacobi
+nhil5=length(bhilb5);
+k35=1;
+dif35=1;
+x035j=zeros(1,nhil5);
+x35j=zeros(1,nhil5);
+while (k35<=N  && dif35>eps)
+    for i =1:nhil5
+        sum=0;
+        for j =1:nhil5
+            if j~=i            
+            sum = sum + hilbert5(i,j)*x035j(j);
+            end
+        end
+        x35j(i)=(bhilb5(i)-sum)/hilbert5(i,i);
+    end
+    k35=k35+1;
+    dif35 = norm(x035j-x35j,inf);    
+    x035j=x35j;
+end
+
+relerr5j = (norm(x035j-sol5)/norm(sol5))*100;
+n35j=['Para n=15, por Jacobi, el error relativo es:',num2str(relerr5j),'%'];
+disp(n35j)
+
+%Gauss-Seidel.
+k35g=1;
+dif35g=1;
+x035g=zeros(1,nhil5);
+x35g=zeros(1,nhil5);
+while (k35g<=N  && dif35g>eps)
+    for i =1:nhil5
+        sum1=0;
+        sum2=0;
+        for j =1:(i-1)           
+            sum1 = sum1 + (hilbert5(i,j).*x35g(j));
+        end
+        for j=(i+1):nhil5 
+            sum2 = sum2 + (hilbert5(i,j).*x035g(j));
+        end
+        x35g(i)=(bhilb5(i)-sum1-sum2)/hilbert5(i,i);
+    end
+    k35g=k35g+1;
+    dif35g = norm(x035g-x35g,inf);    
+    x035g=x35g;
+end
+relerr5g = (norm(x035g-sol5)/norm(sol5))*100;
+n35g=['Para n=15, por Gauss-Seidel, el error relativo es:',num2str(relerr5g),'%'];
+disp(n35g)
